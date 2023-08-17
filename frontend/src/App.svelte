@@ -1,5 +1,4 @@
 <script>
-   import logo from "./assets/images/logo-universal.png";
    import { Greet } from "../wailsjs/go/main/App.js";
    import { Register } from "../wailsjs/go/main/App.js";
    import { main } from "../wailsjs/go/models";
@@ -19,7 +18,6 @@
 </script>
 
 <main>
-   <img alt="Wails logo" id="logo" src={logo} />
    <div class="result" id="result">{resultText}</div>
    <div class="result" id="regiterResult">{regiterResult}</div>
    <div class="input-box" id="input">
@@ -36,18 +34,6 @@
 </main>
 
 <style>
-   #logo {
-      display: block;
-      width: 50%;
-      height: 50%;
-      margin: auto;
-      padding: 10% 0 0;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
-      background-origin: content-box;
-   }
-
    .result {
       height: 20px;
       line-height: 20px;

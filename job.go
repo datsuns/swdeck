@@ -3,13 +3,13 @@ package main
 import "fmt"
 
 type Job struct {
-	Id uint32 `json:"id"`
+	Handle ExecHandle
 }
 
 func NewJob() *Job {
-	return &Job{Id: 0}
+	return &Job{Handle: ExecHandle(0)}
 }
 
 func (j *Job) Run() {
-	fmt.Printf("Job<%d> start\n", j.Id)
+	fmt.Printf("Job<%v> start\n", j.Handle)
 }

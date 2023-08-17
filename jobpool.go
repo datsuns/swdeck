@@ -1,7 +1,7 @@
 package main
 
 type JobPool struct {
-	Jobs []Job `json:"jobs"`
+	Jobs []Job
 }
 
 func NewJobPool() *JobPool {

@@ -27,7 +27,17 @@ func (a *App) Greet(name string) string {
 	return fmt.Sprintf("Hello %s, It's show time!", name)
 }
 
-func (a *App) Register(e Entry) bool {
+func (a *App) Register(e Entry) ExecHandle {
 	fmt.Println("register ", e.Type)
-	return true
+	return ExecHandle(1)
+}
+
+func (a *App) Run(h ExecHandle) {
+	fmt.Println("run ", h)
+}
+
+func (a *App) Load(h ExecHandle) *Job {
+	ret := NewJob()
+	fmt.Println("Load ", h, " -> ", ret)
+	return ret
 }

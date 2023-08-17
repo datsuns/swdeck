@@ -6,6 +6,14 @@ export function Greet(arg1) {
   return window['go']['main']['App']['Greet'](arg1);
 }
 
+export function Load(arg1) {
+  return window['go']['main']['App']['Load'](arg1);
+}
+
 export function Register(arg1) {
   return window['go']['main']['App']['Register'](arg1);
+}
+
+export function Run(arg1) {
+  return window['go']['main']['App']['Run'](arg1);
 }

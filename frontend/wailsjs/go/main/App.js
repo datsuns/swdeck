@@ -10,6 +10,10 @@ export function Load(arg1) {
   return window['go']['main']['App']['Load'](arg1);
 }
 
+export function LoadAll() {
+  return window['go']['main']['App']['LoadAll']();
+}
+
 export function Register(arg1) {
   return window['go']['main']['App']['Register'](arg1);
 }

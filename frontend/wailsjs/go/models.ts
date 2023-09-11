@@ -14,6 +14,18 @@ export namespace main {
 	        this.icon = source["icon"];
 	    }
 	}
+	export class Job {
+	    handle: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new Job(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.handle = source["handle"];
+	    }
+	}
 
 }
 

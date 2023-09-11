@@ -28,16 +28,22 @@ func (a *App) Greet(name string) string {
 }
 
 func (a *App) Register(e Entry) ExecHandle {
-	fmt.Println("register ", e.Type)
+	fmt.Println("go: register ", e.Type)
 	return ExecHandle(1)
 }
 
 func (a *App) Run(h ExecHandle) {
-	fmt.Println("run ", h)
+	fmt.Println("go: run ", h)
 }
 
-func (a *App) Load(h ExecHandle) *Job {
+func (a *App) Load(h ExecHandle) Job {
 	ret := NewJob()
-	fmt.Println("Load ", h, " -> ", ret)
+	fmt.Println("go: Load ", h, " -> ", ret)
+	return ret
+}
+
+func (a *App) LoadAll() []Job {
+	ret := []Job{NewJob()}
+	fmt.Println("go: LoadAll ", ret[0].Handle)
 	return ret
 }

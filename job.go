@@ -3,11 +3,11 @@ package main
 import "fmt"
 
 type Job struct {
-	Handle ExecHandle
+	Handle ExecHandle `json:"handle"`
 }
 
-func NewJob() *Job {
-	return &Job{Handle: ExecHandle(0)}
+func NewJob() Job {
+	return Job{Handle: ExecHandle(0)}
 }
 
 func (j *Job) Run() {

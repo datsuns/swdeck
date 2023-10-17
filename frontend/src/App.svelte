@@ -1,98 +1,53 @@
 <script>
-  import { Greet } from "../wailsjs/go/main/App.js";
-  import { Register } from "../wailsjs/go/main/App.js";
-  import { LoadAll } from "../wailsjs/go/main/App.js";
-  import { main } from "../wailsjs/go/models";
+  import { Add, Get, Launch, Delete } from "../wailsjs/go/main/App.js";
+  //import { Job } from "../wailsjs/go/models";
+  import { onMount } from "svelte";
 
-  let resultText = "Please enter your name below 👇";
-  let regiterResult = false;
-  let name;
-  const done = load();
+  let jobs = [];
+  let jobName = "";
+  let jobCommand = "";
+  let jobType = "app"; // デフォルトとして 'app' を選択
 
-  function greet() {
-    Greet(name).then((result) => (resultText = result));
+  onMount(async () => {
+    jobs = await Get();
+  });
+
+  async function addJob() {
+    if (jobName && jobCommand) {
+      const newJob = { name: jobName, command: jobCommand, type: jobType };
+      await Add(newJob);
+      jobs = await Get();
+      jobName = "";
+      jobCommand = "";
+    }
   }
 
-  function register() {
-    let e = new main.Entry();
-    e.type = "Process";
-    Register(e).then((result) => (regiterResult = result));
+  async function deleteJob(index) {
+    await Delete(index);
+    jobs = await Get();
   }
 
-  async function load() {
-    console.log("sart loading");
-    const jobs = await LoadAll();
-    console.log("loaded");
-    return jobs;
+  function launchJob(job) {
+    Launch(job);
   }
 </script>
 
-<main>
-  <div class="result" id="result">{resultText}</div>
-  <div class="result" id="regiterResult">{regiterResult}</div>
-  <div class="input-box" id="input">
-    <input
-      autocomplete="off"
-      bind:value={name}
-      class="input"
-      id="name"
-      type="text"
-    />
-    <button class="btn" on:click={greet}>Greet</button>
-  </div>
-  <button class="btn" on:click={register}>Register</button>
-  <div class="grid">
-    {#await done}
-      Loading1
-    {:then jarray}
-      {#each jarray as j (j.handle)}
-        <button class="btn">handle is {j.handle}</button>
-      {/each}
-    {/await}
-  </div>
-</main>
+<input bind:value={jobName} placeholder="Job Name" />
+<input bind:value={jobCommand} placeholder="Command or Path" />
 
-<style>
-  .result {
-    height: 20px;
-    line-height: 20px;
-    margin: 1.5rem auto;
-  }
+<!-- Job Type の選択 -->
+<select bind:value={jobType}>
+  <option value="app">Application</option>
+  <option value="mp3">MP3 File</option>
+</select>
 
-  .input-box .btn {
-    width: 60px;
-    height: 30px;
-    line-height: 30px;
-    border-radius: 3px;
-    border: none;
-    margin: 0 0 0 20px;
-    padding: 0 8px;
-    cursor: pointer;
-  }
+<button on:click={addJob}>Add Job</button>
 
-  .input-box .btn:hover {
-    background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
-    color: #333333;
-  }
-
-  .input-box .input {
-    border: none;
-    border-radius: 3px;
-    outline: none;
-    height: 30px;
-    line-height: 30px;
-    padding: 0 10px;
-    background-color: rgba(240, 240, 240, 1);
-    -webkit-font-smoothing: antialiased;
-  }
-
-  .input-box .input:hover {
-    border: none;
-    background-color: rgba(255, 255, 255, 1);
-  }
-
-  .input-box .input:focus {
-    border: none;
-    background-color: rgba(255, 255, 255, 1);
-  }
-</style>
+<ul>
+  {#each jobs as job, index}
+    <li>
+      <button on:click={() => launchJob(job)}>{job.name}</button>
+      <button on:click={() => deleteJob(index)}>Delete</button>
+    </li>
+  {/each}
+</ul>

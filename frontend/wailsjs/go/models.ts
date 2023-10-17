@@ -1,21 +1,9 @@
 export namespace main {
 	
-	export class Entry {
-	    type: string;
-	    icon: string;
-	
-	    static createFrom(source: any = {}) {
-	        return new Entry(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.type = source["type"];
-	        this.icon = source["icon"];
-	    }
-	}
 	export class Job {
-	    handle: number;
+	    name: string;
+	    command: string;
+	    type: string;
 	
 	    static createFrom(source: any = {}) {
 	        return new Job(source);
@@ -23,7 +11,9 @@ export namespace main {
 	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.handle = source["handle"];
+	        this.name = source["name"];
+	        this.command = source["command"];
+	        this.type = source["type"];
 	    }
 	}
 
